@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% load static %}
+{% block page_name %}Home{% endblock page_name %}
+
+{% block content %}
+<div
+  class="container rounded-xl mx-auto bg-gray-800 h-50vh mb-10 mt-24 bg-cover bg-center"
+  style="
+    background-image: url(https://images.unsplash.com/photo-1461896836934-ffe607ba8211?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1950&q=80);
+  "
+></div>
+<div class="container mx-auto h-25vh w-full">
+  <ul class="flex items-center h-full w-full justify-between">
+    
+    <li class="bg-gray-200 w-2/6 h-25vh mx-2 ml-0 flex items-center justify-center rounded-xl bg-cover bg-center shadow-md hover:shadow-lg">
+        {% if user.is_authenticated %}
+          <a class="h-full w-full" href="{{user.get_absolute_url}}">STATUS</a>
+        {% else %}
+          <a class="h-full w-full" href="{% url "users:login" %}">STATUS</a>
+        {% endif %}
+    </li>    
+    <li
+      class="bg-gray-200 w-2/6 h-25vh mx-2 flex items-center justify-center rounded-xl bg-cover bg-center shadow-md hover:shadow-lg"
+      style="
+        background-image: url(https://images.unsplash.com/photo-1516820612845-a13894592046?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1950&q=80);
+      "
+    >
+      <a class="h-full w-full" href="">PLAN</a>
+    </li>
+    <li
+      class="bg-gray-200 w-2/6 h-25vh mx-2 mr-0 flex items-center justify-center rounded-xl bg-cover bg-center shadow-md hover:shadow-lg"
+    >
+      <a class="h-full w-full" href="{% url "exercise:main" %}">>EXERCISE</a>
+    </li>
+  </ul>
+</div>
+
+{% endblock content %}

@@ -1,0 +1,180 @@
+<div class="w-full flex items-start">
+    <ul class="stat w-1/6">
+        <li class="w-full">pacer
+            
+            {% if user.pacer %}
+                <i class="fas fa-check-circle text-teal-400 ml-1"></i>
+            {% endif %}
+                
+        </li>
+        <li class="w-full">longTimeRun
+            {% if user.longTimeRun %}
+                <i class="fas fa-check-circle text-teal-400 ml-1"></i>
+            {% endif %}
+        </li>
+        <li class="w-full">stepTest
+            {% if user.stepTest %}
+                <i class="fas fa-check-circle text-teal-400 ml-1"></i>
+            {% endif %}
+        </li>
+    </ul>
+    <ul class="stat w-1/12 mr-10">
+        <li class="w-full">
+            {% if user.pacer == None %}
+                -
+            {% else %}
+                {{user.pacer}}
+            {% endif %}       
+        </li>
+        <li class="w-full">
+            {% if user.longTimeRun == None %}
+                -
+            {% else %}
+                {{user.longTimeRun}}
+            {% endif %}
+        </li>
+        <li class="w-full">
+            {% if user.stepTest == None %}
+                -
+            {% else %}
+                {{user.stepTest}}
+            {% endif %}
+        </li>
+    </ul>
+    <ul class="stat w-1/6">
+        <li class="w-full">bendFoward
+            {% if user.bendFoward %}
+                <i class="fas fa-check-circle text-teal-400 ml-1"></i>
+            {% endif %}
+        </li>
+        <li class="w-full">totalFlexibility
+            {% if user.totalFlexibility %}
+                <i class="fas fa-check-circle text-teal-400 ml-1"></i>
+            {% endif %}
+        </li>
+    </ul>
+    <ul class="stat w-1/12 mr-10">
+        <li>
+            {% if user.bendFoward == None %}
+                -
+            {% else %}
+                {{user.bendFoward}}
+            {% endif %}
+        </li>
+        <li>
+            {% if user.totalFlexibility == None %}
+                -
+            {% else %}
+                {{user.totalFlexibility}}
+            {% endif %}
+        </li>
+    </ul>
+    <ul class="stat w-1/6">
+        {% comment %} <li>pushUp
+            {% if user.pushUp %}
+                <i class="fas fa-check-circle text-teal-400 ml-1"></i>
+            {% endif %}
+        </li> {% endcomment %}
+        <li>sitUp
+            {% if user.sitUp %}
+                <i class="fas fa-check-circle text-teal-400 ml-1"></i>
+            {% endif %}
+        </li>
+        <li>grip
+            {% if user.grip %}
+                <i class="fas fa-check-circle text-teal-400 ml-1"></i>
+            {% endif %}
+        </li>
+    </ul>
+    <ul class="stat w-1/12 mr-10">
+        {% comment %} <li>
+            {% if user.pushUp == None %}
+                -
+            {% else %}
+                {{user.pushUp}}
+            {% endif %}
+        </li> {% endcomment %}
+        <li>
+            {% if user.sitUp == None %}
+                -
+            {% else %}
+                {{user.sitUp}}
+            {% endif %}
+        </li>
+        <li>
+            {% if user.grip == None %}
+                -
+            {% else %}
+                {{user.grip}}
+            {% endif %}
+        </li>
+    </ul>
+    <ul class="stat w-1/6">
+        <li>sprint
+            {% if user.sprint %}
+                <i class="fas fa-check-circle text-teal-400 ml-1"></i>
+            {% endif %}
+        </li>
+        <li>longJump
+            {% if user.longJump %}
+                <i class="fas fa-check-circle text-teal-400 ml-1"></i>
+            {% endif %}
+        </li>
+    </ul>
+    <ul class="stat w-1/12 mr-10">
+        <li>
+            {% if user.sprint == None %}
+                -
+            {% else %}
+                {{user.sprint}}
+            {% endif %}
+        </li>
+        <li>
+            {% if user.longJump == None %}
+                -
+            {% else %}
+                {{user.longJump}}
+            {% endif %}
+        </li>
+    </ul>
+    <ul class="stat w-1/6">
+        <li>height
+            {% if user.height %}
+                <i class="fas fa-check-circle text-teal-400 ml-1"></i>
+            {% endif %}
+        </li>
+        <li>weight
+            {% if user.weight %}
+                <i class="fas fa-check-circle text-teal-400 ml-1"></i>
+            {% endif %}
+        </li>
+        {% comment %} <li>fat
+            {% if user.fat %}
+                <i class="fas fa-check-circle text-teal-400 ml-1"></i>
+            {% endif %} {% endcomment %}
+        </li>
+    </ul>
+    <ul class="stat w-1/12">
+        <li>
+            {% if user.height == None %}
+                -
+            {% else %}
+                {{user.height}}
+            {% endif %}
+        </li>
+        <li>
+            {% if user.weight == None %}
+                -
+            {% else %}
+                {{user.weight}}
+            {% endif %}
+        </li>
+        {% comment %} <li>
+            {% if user.fat == None %}
+                -
+            {% else %}
+                {{user.fat}}
+            {% endif %}
+        </li> {% endcomment %}
+    </ul>
+</div>

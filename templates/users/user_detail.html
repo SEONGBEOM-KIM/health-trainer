@@ -1,0 +1,76 @@
+{% extends "base.html" %}
+
+{% block page_name %}
+    {{user_obj.first_name}}'s Profile
+{% endblock page_name %}
+
+{% block content %}
+     
+    <div class="min-h-75vh w-full flex flex-col items-center">
+            <div class="container w-full flex justify-between mx-auto">
+                <div class="container lg:w-5/12 md:w-1/2 xl:w-1/4 mx-auto flex flex-col items-center border p-6 border-gray-400">
+        
+                    {% include "mixins/user_avatar.html" with user=user_obj %}
+            
+                    <div class="flex items-center">
+                        <span class="text-3xl mt-1">{{user_obj.first_name}}</span>
+                    </div>
+            
+                    <span class="text-lg mb-5">{{user.bio}}</span>
+            
+                    {% if user == user_obj %}
+                        <a href="{% url "users:update" %}" class="btn-link mb-3">Edit Profile</a>
+                        <a href="{% url "users:updaterecord" %}" class="btn-link mb-3">Edit Records</a>
+                    {% endif %}
+                </div>
+                
+                <div class="container lg:w-5/12 md:w-1/2 xl:w-8/12 mx-auto flex items-center border border-gray-400">
+                    
+
+                    {% if user_obj.gender is None or user_obj.grade is None %}
+                        <span>프로필 수정하기를 눌러 정보를 입력하세요</span>
+                        <span>기록 입력하기를 눌러 측정 기록을 입력하세요</span>
+                    {% else %}
+                        <span>
+                            <i class="fas fa-medal text-yellow-400 fa-10x"></i>
+                        </span>
+                        <span>
+                            My health score is point!
+                        </span>
+                    {% endif %}
+
+                </div>
+            </div>
+            
+
+            
+            <div class="container lg:w-5/12 md:w-1/2 xl:w-full mx-auto my-10 py-10 flex flex-col items-start justify-around border p-6 border-gray-400">
+                <div class="lg:w-5/12 md:w-1/2 xl:w-full flex items-start">
+                    {% include 'users/user_stat.html' %}
+                </div>
+
+                <div class="flex items-center lg:w-5/12 md:w-1/2 xl:w-full my-5">
+                    <div class="h-px w-full bg-gray-400"></div>
+                    <span class="text-gray-600 font-medium mx-4 text-sm">Rating</span>
+                    <div class="h-px w-full bg-gray-400"></div>
+                </div>
+
+                <div class="container lg:w-5/12 md:w-1/2 xl:w-full mx-auto flex items-center justify-around">
+                    <span class="text-center w-full border border-gray-400 py-2 mr-4 rounded-md">심폐지구력</span>
+                    <span class="text-center w-full border border-gray-400 mx-3 py-2 ml-4 rounded-md">유연성</span>
+                    <span class="text-center w-full border border-gray-400 mx-6 py-2 px--2 rounded-md">근력 및 근지구력</span>
+                    <span class="text-center w-full border border-gray-400 mx-3 py-2 mr-4 rounded-md">순발력</span>
+                    <span class="text-center w-full border border-gray-400 py-2 ml-4 rounded-md">비만</span>
+                </div>
+
+                <div class="container lg:w-5/12 md:w-1/2 xl:w-full mx-auto flex items-center justify-around mt-3">
+                    <span class="text-center w-full border border-gray-400 py-2 mr-4 rounded-md">{{user_obj.endurance_point}}</span>
+                    <span class="text-center w-full border border-gray-400 mx-3 py-2 ml-4 rounded-md">{{user_obj.flexibility_point}}</span>
+                    <span class="text-center w-full border border-gray-400 mx-6 py-2 px--2 rounded-md">{{user_obj.strength_point}}</span>
+                    <span class="text-center w-full border border-gray-400 mx-3 py-2 mr-4 rounded-md">{{user_obj.quickness_point}}</span>
+                    <span class="text-center w-full border border-gray-400 py-2 ml-4 rounded-md">{{user_obj.fat_point}}</span>
+                </div>
+            </div>      
+    </div>
+        
+{% endblock content %}
