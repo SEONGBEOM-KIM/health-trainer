@@ -151,3 +151,4 @@ LOGIN_URL = "/users/login"
 
 # Netlify
 PIPENV_IGNORE_VIRTUALENVS = 1
+PIPENV_VERBOSITY = -1
