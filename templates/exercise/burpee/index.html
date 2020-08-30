@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="css/styles.css" />
+    <link rel="stylesheet" type="text/css" href="css/ldbtn.min.css" />
+    <link rel="stylesheet" type="text/css" href="css/loading.css" />
+    <title>Burpee|Exercise</title>
+  </head>
+  <body>
+    <header class="header">
+      <div class="title">Teachable Machine Pose Model - Burpee</div>
+      <button class="ai_button id-ext-right" type="button" onclick="bp_init()">
+        Start
+        <div
+          class="ld ld-ring ld-spin running loading_hidden"
+          style="width: 1em; height: 1em; background: currentColor border:1px solid"
+        ></div>
+      </button>
+
+      <script>
+        const start_button = document.querySelector(".ai_button");
+        const loader_ring = document.querySelector(".ld");
+        function remove_hidden() {
+          loader_ring.classList.remove("loading_hidden");
+        }
+
+        start_button.addEventListener("click", remove_hidden);
+
+        function add_hidden() {
+          loader_ring.classList.add("loading_hidden");
+        }
+
+        var hide = setInterval(function () {
+          setTimeout(add_hidden, 10000);
+        }, 1000);
+      </script>
+    </header>
+
+    <div class="camera id-ext-right">
+      <canvas id="canvas" class="canvas"></canvas>
+      <div
+        class="canvas-ld ld ld-ring ld-spin running loading_hidden"
+        style="width: 1em; height: 1em; background: currentColor border:1px solid;"
+      ></div>
+    </div>
+
+    <script>
+      const camera_ring = document.querySelector(".canvas-ld");
+      function remove_camera_hidden() {
+        camera_ring.classList.remove("loading_hidden");
+      }
+      start_button.addEventListener("click", remove_camera_hidden);
+    </script>
+
+    <div id="label-container" class="label-container"></div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@1.3.1/dist/tf.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@teachablemachine/pose@0.8/dist/teachablemachine-pose.min.js"></script>
+    <script type="text/javascript">
+      // More API functions here:
+      // https://github.com/googlecreativelab/teachablemachine-community/tree/master/libraries/pose
+
+      // the link to your model provided by Teachable Machine export panel
+      const URL = "./my_model/";
+      let model, webcam, ctx, labelContainer, maxPredictions;
+
+      async function bp_init() {
+        const modelURL = URL + "model.json";
+        const metadataURL = URL + "metadata.json";
+
+        // load the model and metadata
+        // Refer to tmImage.loadFromFiles() in the API to support files from a file picker
+        // Note: the pose library adds a tmPose object to your window (window.tmPose)
+        model = await tmPose.load(modelURL, metadataURL);
+        maxPredictions = model.getTotalClasses();
+
+        // Convenience function to setup a webcam
+        const size = 400;
+        const flip = true; // whether to flip the webcam
+        webcam = new tmPose.Webcam(size, size, flip); // width, height, flip
+        await webcam.setup(); // request access to the webcam
+        await webcam.play();
+        window.requestAnimationFrame(loop);
+
+        // append/get elements to the DOM
+        const canvas = document.getElementById("canvas");
+        canvas.width = size;
+        canvas.height = size;
+        ctx = canvas.getContext("2d");
+        labelContainer = document.getElementById("label-container");
+        for (let i = 0; i < maxPredictions; i++) {
+          // and class labels
+          labelContainer.appendChild(document.createElement("div"));
+        }
+      }
+
+      async function loop(timestamp) {
+        webcam.update(); // update the webcam frame
+        await predict();
+        window.requestAnimationFrame(loop);
+      }
+
+      var status = "stand";
+      var count = 0;
+      async function predict() {
+        // Prediction #1: run input through posenet
+        // estimatePose can take in an image, video or canvas html element
+        const { pose, posenetOutput } = await model.estimatePose(webcam.canvas);
+        // Prediction 2: run input through teachable machine classification model
+        const prediction = await model.predict(posenetOutput);
+        if (prediction[0].probability.toFixed(2) > 0.9) {
+          if (status == "burpee") {
+            count++;
+            var audio = new Audio((count % 10) + ".mp3");
+            audio.play();
+          }
+          status = "stand";
+        } else if (
+          prediction[1].probability.toFixed(2) > 0.9 ||
+          prediction[2].probability.toFixed(2) > 0.9
+        ) {
+          status = "burpee";
+        }
+        for (let i = 0; i < maxPredictions; i++) {
+          const classPrediction =
+            prediction[i].className +
+            ": " +
+            prediction[i].probability.toFixed(2);
+          labelContainer.childNodes[i].innerHTML = classPrediction;
+        }
+
+        // finally draw the poses
+        drawPose(pose);
+      }
+
+      function drawPose(pose) {
+        if (webcam.canvas) {
+          ctx.drawImage(webcam.canvas, 0, 0);
+          // draw the keypoints and skeleton
+          if (pose) {
+            const minPartConfidence = 0.5;
+            tmPose.drawKeypoints(pose.keypoints, minPartConfidence, ctx);
+            tmPose.drawSkeleton(pose.keypoints, minPartConfidence, ctx);
+          }
+        }
+      }
+    </script>
+
+    <div class="frame">
+      <div class="center">
+        <div class="headline-1">Your daily</div>
+        <div class="headline-2">Progress</div>
+        <div class="circle-big">
+          <div id="count" class="text"></div>
+          <svg>
+            <circle class="bg" cx="57" cy="57" r="52" />
+            <circle id="circle" class="progress" cx="57" cy="57" r="52" />
+          </svg>
+        </div>
+        <!-- <div class="circle-small">
+          <div class="text">
+            8563
+            <p>steps</p>
+          </div>
+          <svg>
+            <circle class="bg" cx="57" cy="57" r="37" />
+            <circle class="progress" cx="57" cy="57" r="37" />
+          </svg>
+        </div>
+        <div class="circle-small-2">
+          <div class="text">
+            6.2
+            <p>km</p>
+          </div>
+          <svg>
+            <circle class="bg" cx="57" cy="57" r="37" />
+            <circle class="progress" cx="57" cy="57" r="37" />
+          </svg>
+        </div> -->
+      </div>
+    </div>
+    <script>
+      var circle = document.getElementById("circle");
+      var sq_count = setInterval(function () {
+        document.getElementById("count").innerHTML = count;
+        circle.classList.add("ani-" + (count % 10));
+        circle.classList.remove("ani-" + ((count + 9) % 10));
+      }, 1000);
+    </script>
+  </body>
+</html>

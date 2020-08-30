@@ -4,6 +4,9 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- <link rel="stylesheet" href="css/styles.css" />
+    <link rel="stylesheet" type="text/css" href="css/ldbtn.min.css" />
+    <link rel="stylesheet" type="text/css" href="css/loading.css" /> -->
     <link rel="stylesheet" href="{% static "css/styles.css" %}">
     <link
       rel="stylesheet"
@@ -16,7 +19,7 @@
     {% include 'partials/messages.html' %}
     
     <header
-      class="container max-w-full flex items-center justify-between px-6 h-20 border-b border-gray-400 bg-white fixed inset-0"
+      class="container max-w-full flex items-center justify-between px-6 h-20 border-b border-gray-400 bg-white fixed inset-0 z-10"
     >
     {% include "partials/nav.html" %}
     </header>

@@ -10,13 +10,11 @@
     </div>
     <div class="container lg:w-9/12 md:w-1/2 xl:w-full mx-auto my-5 flex items-center justify-center p-6 mb-10">
         <div>
-            <button id="squat" class="btn container h-25vh w-25vh rounded-xl bg-gray-200 shadow-lg hover:shadow-xl mx-5">Squat</button>
-            <div class="modal modal_hidden">
+            <button id="squat" class="btn container h-25vh w-25vh rounded-xl bg-gray-200 text-gray-700 text-xl font-medium shadow-xl hover:shadow-2xl mx-5">앉았다 일어서기</button>
+            <div id="sq_modal" class="modal modal_hidden">
                     <div class="modal__overlay"></div>
                     <div class="modal__content">
-                        <h1>I'm a modal</h1>
-                        {% include 'exercise/squat/index.html' %}
-                        <button class="close_button btn">Close</button>
+                        {% include 'exercise/squat-body.html' %}
                     </div>
             </div>
             <script>
@@ -36,19 +34,18 @@
             </script>
         </div>
         <div>
-            <button id="burpee" class="btn container h-25vh w-25vh rounded-xl bg-gray-200 shadow-lg hover:shadow-xl mx-5">Burpee</button>
+            <button id="burpee" class="btn container h-25vh w-25vh rounded-xl bg-teal-400 text-xl text-white font-medium shadow-xl hover:shadow-2xl mx-5">버피테스트</button>
             <div class="b_modal modal_hidden">
                     <div class="b_modal__overlay"></div>
                     <div class="b_modal__content">
-                        <h1>I'm a modal</h1>
-                        <button class="btn">Close</button>
+                        {% include 'exercise/burpee-body.html' %}
                     </div>
             </div>
             <script>
                     const b_openButton = document.getElementById("burpee");
                     const b_modal = document.querySelector(".b_modal");
                     const b_overlay = b_modal.querySelector(".b_modal__overlay");
-                    const b_closeBtn = b_modal.querySelector("button");
+                    const b_closeBtn = b_modal.querySelector(".close_button");
                     const b_openModal = () => {
                         b_modal.classList.remove("modal_hidden");
                     }
@@ -61,19 +58,18 @@
             </script>
         </div>
         <div>
-            <button id="stretch" class="btn container h-25vh w-25vh rounded-xl bg-gray-200 shadow-lg hover:shadow-xl mx-5">Stretch</button>
+            <button id="stretch" class="btn container h-25vh w-25vh rounded-xl bg-red-500 text-xl text-white font-medium shadow-lg hover:shadow-xl mx-5">스트래칭</button>
             <div class="s_modal modal_hidden">
                     <div class="s_modal__overlay"></div>
                     <div class="s_modal__content">
-                        <h1>I'm a modal</h1>
-                        <button class="btn">Close</button>
+                      {% include 'exercise/stretch-body.html' %}
                     </div>
             </div>
             <script>
                     const s_openButton = document.getElementById("stretch");
                     const s_modal = document.querySelector(".s_modal");
                     const s_overlay = s_modal.querySelector(".s_modal__overlay");
-                    const s_closeBtn = s_modal.querySelector("button");
+                    const s_closeBtn = s_modal.querySelector(".close_button");
                     const s_openModal = () => {
                         s_modal.classList.remove("modal_hidden");
                     }
@@ -85,16 +81,22 @@
                     s_openButton.addEventListener("click", s_openModal);
             </script>
         </div>
-        
             <!-- <a href="https://squat-aitrainer.netlify.app" class="container h-25vh w-50vh rounded-xl border border-gray-400 mx-5">Squat</a>
             <a href="https://burpee-aitrainer.netlify.app" class="container h-25vh w-50vh rounded-xl border border-gray-400 mx-5">Burpee</a>
             <a href="https://stretch-aitrainer.netlify.app" class="container h-25vh w-50vh rounded-xl border border-gray-400 mx-5">Stretch</a> -->
     </div>
     <div class="h-25vh">
-        <div class="sq_desc desc_hidden w-8/12 mx-auto border border-gray-400">
-            Squat Description
+        <div class="sq_desc desc_hidden w-8/12 mx-auto border-t border-gray-400 flex flex-col items-center">
+          <span class="my-5 text-xl font-semibold text-teal-500"><i class="fas fa-info-circle mr-2"></i>온동 시작 전 안내</span>
+          <ul class="">
+            <li class="text-gray-700 text-lg font-light my-1"><i class="fas fa-dumbbell mr-4 text-red-500"></i>Chrome 브라우저 사용을 권장합니다.</li>
+            <li class="text-gray-700 text-lg font-light my-1"><i class="fas fa-dumbbell mr-4 text-gray-600"></i>웹캠을 PC에 연결하세요.(노트북 카메라 사용 가능)</li>
+            <li class="text-gray-700 text-lg font-light my-1"><i class="fas fa-dumbbell mr-4 text-red-500"></i>Start 버튼을 클릭하고 왼쪽 상단 팝업창 카메라 권한을 허용해주세요.</li>
+            <li class="text-gray-700 text-lg font-light my-1"><i class="fas fa-dumbbell mr-4 text-gray-600"></i>AI가 카메라를 통해 신체를 인식합니다.</li>
+            <li class="text-gray-700 text-lg font-light my-1"><i class="fas fa-dumbbell mr-4 text-red-500"></i>AI 인식이 안되면 카메라에 신체가 꽉 차도록 위치를 조정하세요.</li>
+          </ul>
         </div>
-        <script>
+        <!-- <script>
             const sq_button = document.getElementById("squat");
             const sq_desc = document.querySelector(".sq_desc")
             const sq_appear = () => {
@@ -137,7 +139,7 @@
             }
             st_button.addEventListener("mouseover", st_appear)
             st_button.addEventListener("mouseout", st_disappear)
-        </script>
+        </script> -->
 
     </div>
     

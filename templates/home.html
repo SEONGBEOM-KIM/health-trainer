@@ -3,12 +3,37 @@
 {% block page_name %}Home{% endblock page_name %}
 
 {% block content %}
-<div
-  class="container rounded-xl mx-auto bg-gray-800 h-50vh mb-10 mt-24 bg-cover bg-center"
-  style="
-    background-image: url(https://images.unsplash.com/photo-1461896836934-ffe607ba8211?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1950&q=80);
-  "
-></div>
+<script>
+ var index=0;
+ window.onload = function() {
+   slideShow();
+ }
+
+ function slideShow(){
+   var i;
+   var x = document.getElementsByClassName("slide1");
+   for (i=0; i<x.length; i++){
+     x[i].style.display = "none"
+   }
+   index++;
+   if (index>x.length) {
+     index=1;
+   }
+   x[index-1].style.display = "block";
+   setTimeout(slideShow, 4000)
+ }
+</script>
+
+<div class="bg-img container rounded-xl mx-auto bg-gray-800 h-50vh mb-10 mt-24">
+  <img src="https://user-images.githubusercontent.com/59245627/91653924-b431f180-eadf-11ea-9ae2-dd8b3723694f.jpg" class="slide1 w-full h-50vh bg-cover overflow-hidden rounded-xl" id="mainImage" alt="noImage">
+  <img src="https://user-images.githubusercontent.com/59245627/91654346-d4af7b00-eae2-11ea-8925-d15c4b342479.jpg" class="slide1 w-full h-50vh bg-cover overflow-hidden rounded-xl" id="mainImage" alt="noImage">
+  <img src="https://user-images.githubusercontent.com/59245627/91654364-0d4f5480-eae3-11ea-877a-7545d8ea47c0.jpg" class="slide1 w-full h-50vh bg-cover overflow-hidden rounded-xl" id="mainImage" alt="noImage">
+  <img src="https://user-images.githubusercontent.com/59245627/91654621-50122c00-eae5-11ea-9c8f-19f5c607afe8.jpg" class="slide1 w-full h-50vh bg-cover overflow-hidden rounded-xl" id="mainImage" alt="noImage">
+  <img src="https://user-images.githubusercontent.com/59245627/91654632-615b3880-eae5-11ea-928d-e541c95a76f1.jpg" class="slide1 w-full h-50vh bg-cover overflow-hidden rounded-xl" id="mainImage" alt="noImage">
+  <img src="https://user-images.githubusercontent.com/59245627/91654638-759f3580-eae5-11ea-8166-7bdc6456cff1.jpg" class="slide1 w-full h-50vh bg-cover overflow-hidden rounded-xl" id="mainImage" alt="noImage">
+</div>
+
+
 <div class="container mx-auto h-25vh w-full">
   <ul class="flex items-center h-full w-full justify-between">
     
