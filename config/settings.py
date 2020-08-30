@@ -148,7 +148,3 @@ EMAIL_FROM = "sexy-guy@sandbox96dbc9f11d254274a1d1006ea561bbde.mailgun.org"
 # Auth
 
 LOGIN_URL = "/users/login"
-
-# Netlify
-PIPENV_IGNORE_VIRTUALENVS = 1
-PIPENV_VERBOSITY = -1
