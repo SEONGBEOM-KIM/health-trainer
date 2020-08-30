@@ -12,25 +12,38 @@
 <div class="container mx-auto h-25vh w-full">
   <ul class="flex items-center h-full w-full justify-between">
     
-    <li class="bg-gray-200 w-2/6 h-25vh mx-2 ml-0 flex items-center justify-center rounded-xl bg-cover bg-center shadow-md hover:shadow-lg">
+    <li class="bg-gray-100 w-2/6 h-25vh mx-2 ml-0 flex items-center justify-center rounded-xl bg-cover bg-center shadow-md hover:shadow-lg">
         {% if user.is_authenticated %}
-          <a class="h-full w-full" href="{{user.get_absolute_url}}">STATUS</a>
+          <a class="h-full w-full flex flex-col items-center justify-center" href="{{user.get_absolute_url}}">
+            <i class="far fa-address-card fa-5x mb-5"></i>
+            <span class="mb-3 text-teal-500 text-xl font-semibold">PAPS 기록 입력하기</span>
+            <span class="mb-3 text-gray-700 text-md font-light">나의 건강 체력 수준을 확인해보세요</span>
+          </a>
         {% else %}
-          <a class="h-full w-full" href="{% url "users:login" %}">STATUS</a>
+          <a class="h-full w-full flex flex-col items-center justify-center" href="{% url "users:login" %}">
+            <i class="far fa-address-card fa-5x mb-5"></i>
+            <span class="mb-3 text-teal-500 text-xl font-semibold">PAPS 기록 입력하기</span>
+            <span class="mb-3 text-gray-700 text-md font-light">나의 건강 체력 수준을 확인해보세요</span>
+          </a>
         {% endif %}
     </li>    
     <li
-      class="bg-gray-200 w-2/6 h-25vh mx-2 flex items-center justify-center rounded-xl bg-cover bg-center shadow-md hover:shadow-lg"
-      style="
-        background-image: url(https://images.unsplash.com/photo-1516820612845-a13894592046?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1950&q=80);
-      "
+      class="bg-gray-100 w-2/6 h-25vh mx-2 flex items-center justify-center rounded-xl bg-cover bg-center shadow-md hover:shadow-lg"
     >
-      <a class="h-full w-full" href="">PLAN</a>
+      <a class="h-full w-full flex flex-col items-center justify-center" href="{% url "todo:list" %}">
+        <i class="fas fa-list-ol fa-5x mb-5"></i>
+        <span class="mb-3 text-teal-500 text-xl font-semibold">계획 세우기</span>
+        <span class="mb-3 text-gray-700 text-md font-light">나에게 맞는 운동 목표를 세워보세요</span>
+      </a>
     </li>
     <li
-      class="bg-gray-200 w-2/6 h-25vh mx-2 mr-0 flex items-center justify-center rounded-xl bg-cover bg-center shadow-md hover:shadow-lg"
+      class="bg-gray-100 w-2/6 h-25vh mx-2 mr-0 flex items-center justify-center rounded-xl bg-cover bg-center shadow-md hover:shadow-lg"
     >
-      <a class="h-full w-full" href="{% url "exercise:main" %}">>EXERCISE</a>
+      <a class="h-full w-full flex flex-col items-center justify-center" href="{% url "exercise:main" %}">
+        <i class="fas fa-running fa-5x mb-5"></i>
+        <span class="mb-3 text-teal-500 text-xl font-semibold">운동하기</span>
+        <span class="mb-3 text-gray-700 text-md font-light">건강 체력을 기르기 위해 운동을 시작하세요</span>
+      </a>
     </li>
   </ul>
 </div>

@@ -337,6 +337,7 @@ class User(AbstractUser):
                 return endurance_point
 
     def flexibility_point(self):
+        totol_point = []
         if self.bendFoward == None:
             self.bendFoward = 0
             return self.bendFoward

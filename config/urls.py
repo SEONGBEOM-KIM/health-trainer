@@ -20,5 +20,6 @@ urlpatterns = [
     path("", include("core.urls", namespace="core")),
     path("users/", include("users.urls", namespace="users")),
     path("exercise/", include("stats.urls", namespace="exercise")),
+    path("todo/", include("records.urls", namespace="todo")),
     path("admin/", admin.site.urls),
 ]

@@ -5,15 +5,145 @@
 {% endblock page_name %}
 
 {% block content %}
-    <div class="container lg:w-5/12 md:w-1/2 xl:w-full min-h-75vh flex flex-col items-center">
-        <div class="container lg:w-5/12 md:w-1/2 xl:w-3/4 min-h-75vh w-full h-full flex items-center justify-between mt-10">
-            <a href="https://aitrainer.netlify.app" class="container lg:w-5/12 md:w-1/2 xl:w-6/12 h-25vh border border-gray-400 mx-5">Squat</a>
-            <a href="#" class="container lg:w-5/12 md:w-1/2 xl:w-6/12 h-25vh border border-gray-400 mx-5">Squat</a>
+    <div class="w-75vh mt-32 mx-auto flex items-center justify-center border-b pb-6">
+        <span class="text-4xl font-bold">Just do it</span>
+    </div>
+    <div class="container lg:w-9/12 md:w-1/2 xl:w-full mx-auto my-5 flex items-center justify-center p-6 mb-10">
+        <div>
+            <button id="squat" class="btn container h-25vh w-25vh rounded-xl bg-gray-200 shadow-lg hover:shadow-xl mx-5">Squat</button>
+            <div class="modal modal_hidden">
+                    <div class="modal__overlay"></div>
+                    <div class="modal__content">
+                        <h1>I'm a modal</h1>
+                        {% include 'exercise/squat/index.html' %}
+                        <button class="close_button btn">Close</button>
+                    </div>
+            </div>
+            <script>
+                    const openButton = document.getElementById("squat");
+                    const modal = document.querySelector(".modal");
+                    const overlay = modal.querySelector(".modal__overlay");
+                    const closeBtn = modal.querySelector(".close_button");
+                    const openModal = () => {
+                        modal.classList.remove("modal_hidden");
+                    }
+                    const closeModal = () => {
+                        modal.classList.add("modal_hidden");
+                    }
+                    overlay.addEventListener("click", closeModal);
+                    closeBtn.addEventListener("click", closeModal);
+                    openButton.addEventListener("click", openModal);
+            </script>
         </div>
-        <div class="container lg:w-5/12 md:w-1/2 xl:w-3/4 min-h-75vh w-full h-full flex items-center justify-between mt-10">
-            <a href="#" class="container lg:w-5/12 md:w-1/2 xl:w-6/12 h-25vh border border-gray-400 mx-5">Squat</a>
-            <a href="#" class="container lg:w-5/12 md:w-1/2 xl:w-6/12 h-25vh border border-gray-400 mx-5">Squat</a>
+        <div>
+            <button id="burpee" class="btn container h-25vh w-25vh rounded-xl bg-gray-200 shadow-lg hover:shadow-xl mx-5">Burpee</button>
+            <div class="b_modal modal_hidden">
+                    <div class="b_modal__overlay"></div>
+                    <div class="b_modal__content">
+                        <h1>I'm a modal</h1>
+                        <button class="btn">Close</button>
+                    </div>
+            </div>
+            <script>
+                    const b_openButton = document.getElementById("burpee");
+                    const b_modal = document.querySelector(".b_modal");
+                    const b_overlay = b_modal.querySelector(".b_modal__overlay");
+                    const b_closeBtn = b_modal.querySelector("button");
+                    const b_openModal = () => {
+                        b_modal.classList.remove("modal_hidden");
+                    }
+                    const b_closeModal = () => {
+                        b_modal.classList.add("modal_hidden");
+                    }
+                    b_overlay.addEventListener("click", b_closeModal);
+                    b_closeBtn.addEventListener("click", b_closeModal);
+                    b_openButton.addEventListener("click", b_openModal);
+            </script>
         </div>
+        <div>
+            <button id="stretch" class="btn container h-25vh w-25vh rounded-xl bg-gray-200 shadow-lg hover:shadow-xl mx-5">Stretch</button>
+            <div class="s_modal modal_hidden">
+                    <div class="s_modal__overlay"></div>
+                    <div class="s_modal__content">
+                        <h1>I'm a modal</h1>
+                        <button class="btn">Close</button>
+                    </div>
+            </div>
+            <script>
+                    const s_openButton = document.getElementById("stretch");
+                    const s_modal = document.querySelector(".s_modal");
+                    const s_overlay = s_modal.querySelector(".s_modal__overlay");
+                    const s_closeBtn = s_modal.querySelector("button");
+                    const s_openModal = () => {
+                        s_modal.classList.remove("modal_hidden");
+                    }
+                    const s_closeModal = () => {
+                        s_modal.classList.add("modal_hidden");
+                    }
+                    s_overlay.addEventListener("click", s_closeModal);
+                    s_closeBtn.addEventListener("click", s_closeModal);
+                    s_openButton.addEventListener("click", s_openModal);
+            </script>
+        </div>
+        
+            <!-- <a href="https://squat-aitrainer.netlify.app" class="container h-25vh w-50vh rounded-xl border border-gray-400 mx-5">Squat</a>
+            <a href="https://burpee-aitrainer.netlify.app" class="container h-25vh w-50vh rounded-xl border border-gray-400 mx-5">Burpee</a>
+            <a href="https://stretch-aitrainer.netlify.app" class="container h-25vh w-50vh rounded-xl border border-gray-400 mx-5">Stretch</a> -->
+    </div>
+    <div class="h-25vh">
+        <div class="sq_desc desc_hidden w-8/12 mx-auto border border-gray-400">
+            Squat Description
+        </div>
+        <script>
+            const sq_button = document.getElementById("squat");
+            const sq_desc = document.querySelector(".sq_desc")
+            const sq_appear = () => {
+                sq_desc.classList.remove("desc_hidden")
+            }
+            const sq_disappear = () => {
+                sq_desc.classList.add("desc_hidden")
+            }
+            sq_button.addEventListener("mouseover", sq_appear)
+            sq_button.addEventListener("mouseout", sq_disappear)
+        </script>
+
+        <div class="bp_desc desc_hidden w-8/12 mx-auto border border-gray-400">
+            Burpee Description
+        </div>
+        <script>
+            const bp_button = document.getElementById("burpee");
+            const bp_desc = document.querySelector(".bp_desc")
+            const bp_appear = () => {
+                bp_desc.classList.remove("desc_hidden")
+            }
+            const bp_disappear = () => {
+                bp_desc.classList.add("desc_hidden")
+            }
+            bp_button.addEventListener("mouseover", bp_appear)
+            bp_button.addEventListener("mouseout", bp_disappear)
+        </script>
+
+        <div class="st_desc desc_hidden w-8/12 mx-auto border border-gray-400">
+            Stretch Description
+        </div>
+        <script>
+            const st_button = document.getElementById("stretch");
+            const st_desc = document.querySelector(".st_desc")
+            const st_appear = () => {
+                st_desc.classList.remove("desc_hidden")
+            }
+            const st_disappear = () => {
+                st_desc.classList.add("desc_hidden")
+            }
+            st_button.addEventListener("mouseover", st_appear)
+            st_button.addEventListener("mouseout", st_disappear)
+        </script>
+
     </div>
     
+
+
+    
+    
+
 {% endblock content %}

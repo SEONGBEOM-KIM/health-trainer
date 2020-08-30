@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+
+{% block page_name %}
+    To Do List
+{% endblock page_name %}
+
+{% block content %}
+    <div class="container min-h-screen w-full h-full flex flex-col">
+        {% if user.is_authenticated %}
+            <div class="flex items-center justify-end mb-10">
+                <a class="bg-red-500 text-white rounded-full mb-5 pt-1 text-md font-light h-8 w-40 text-center mr-6 shadow-lg hover:shadow-xl" href="{% url "todo:create" %}">
+                    <i class="fas fa-plus mr-2 font-light"></i>목표 추가하기</a>
+            </div>
+        {% else %}
+            <div class="flex items-center justify-end mb-10">
+                <a class="bg-red-500 text-white rounded-full mb-5 pt-1 text-md font-light h-8 w-40 text-center mr-6 shadow-lg hover:shadow-xl" href="{% url "users:login" %}">
+                    <i class="fas fa-plus mr-2 font-light"></i>목표 추가하기</a>
+            </div>
+        {% endif %}
+        
+        <div class="w-full flex items-center justify-center">
+            {% if user.is_authenticated %}
+                <div class="container w-75vh h-20 text-center text-4xl font-bold mb-10 border-b"> 
+                    {{user.first_name}}'s Exercise Plan
+                </div>
+            {% else %}
+                <div class="container w-full h-32"></div>
+            {% endif %}
+        </div>
+        
+            
+        
+
+        <div class="container w-9/12 mx-auto flex items-center justify-around">
+            <div class="w-75vh">
+                {% for todo in todos %}
+                    <div class="border border-gray-400 mb-5 rounded-lg text-xl h-12 text-center pt-2 shadow-md hover:shadow-lg mx-1">{{todo}}</div>
+                {% endfor %}
+            </div>
+            
+            <div>
+                {% for pk in todo_pk %}  
+                    <form method="get" action="{% url "todo:delete" %}">
+                        <button class="bg-teal-500 text-white font-light rounded-lg mb-5 text-xl h-12 w-25vh mx-1 shadow-lg hover:shadow-xl" type="submit" name="id" value={{pk}}>
+                            <i class="fas fa-check mr-2 text-md"></i>Done
+                        </button>
+                    </form>
+                {% endfor %}
+            </div>
+
+            <div>
+                {% for pk in todo_pk %}  
+                    <form method="get" action="{% url "todo:delete" %}">
+                        <button class="bg-red-500 text-white font-light rounded-lg mb-5 text-xl h-12 w-12 pl-2 pb-1 mx-1 text-center shadow-lg hover:shadow-xl" type="submit" name="id" value={{pk}}>
+                            <i class="fas fa-times mr-2 text-md"></i>
+                        </button>
+                    </form>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+
+{% endblock content %}

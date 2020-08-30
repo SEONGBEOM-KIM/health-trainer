@@ -19,53 +19,79 @@
                     <span class="text-lg mb-5">{{user.bio}}</span>
             
                     {% if user == user_obj %}
-                        <a href="{% url "users:update" %}" class="btn-link mb-3">Edit Profile</a>
-                        <a href="{% url "users:updaterecord" %}" class="btn-link mb-3">Edit Records</a>
+                        <a href="{% url "users:update" %}" class="btn-link bg-teal-500 mb-3 shadow-lg hover:shadow-xl">Edit Profile</a>
+                        <a href="{% url "users:updaterecord" %}" class="btn-link mb-3 shadow-lg hover:shadow-xl">Edit Records</a>
                     {% endif %}
                 </div>
                 
                 <div class="container lg:w-5/12 md:w-1/2 xl:w-8/12 mx-auto flex items-center border border-gray-400">
-                    
+                     
 
                     {% if user_obj.gender is None or user_obj.grade is None %}
                         <ul class="container lg:w-5/12 md:w-1/2 xl:w-8/12 flex flex-col mx-auto items-center justify-center">
                             <li class="my-2 flex items-center">
-                                <i class="far fa-address-card fa-3x mr-3 text-red-500"></i>
-                                <span class="text-lg font-bold">프로필 수정하기를 눌러 정보를 입력하세요</span>
+                                <i class="far fa-address-card fa-3x mr-4 text-teal-500"></i>
+                                <span class="text-lg font-semibold">프로필 수정하기를 눌러 정보를 입력하세요</span>
                             </li>
                             <li class="my-2 flex items-center">
                                 <i class="fas fa-stopwatch fa-3x mr-3 text-red-500"></i>
-                                <span class="text-lg font-bold">기록 입력하기를 눌러 측정 기록을 입력하세요</span>
+                                <span class="text-lg font-semibold">기록 입력하기를 눌러 측정 기록을 입력하세요</span>
                             </li>
                         </ul>
-                        
+                    
                     {% else %}
-                        <span>
-                            <i class="fas fa-medal text-yellow-400 fa-10x"></i>
-                        </span>
-                        <span>
-                            My health score is point!
-                        </span>
-                        <span>
-                            <i class="fas fa-medal text-gray-400 fa-10x"></i>
-                        </span>
-                        <span>
-                            My health score is point!
-                        </span>
-                        <span>
-                            <i class="fas fa-medal text-orange-800 fa-10x"></i>
-                        </span>
-                        <span>
-                            My health score is point!
-                        </span>
                         
+                        {% if user_obj.pacer or user_obj.longTimeRun or user_obj.stepTest or user_obj.bendFoward or user_obj.totalFlexibility or user_obj.sitUp or user_obj.grip or user_obj.sprint or user_obj.longJump %}
+                            {% if user_obj.endurance_point|add:user_obj.flexibility_point|add:user_obj.strength_point|add:user_obj.quickness_point <= 8  %}
+                                <div class="container w-full flex items-center justify-center">
+                                    <span class="mx-8">
+                                        <i class="fas fa-medal text-yellow-400 fa-10x"></i>
+                                    </span>
+                                    <span class="text-xl font-semibold text-center mx-8"> 
+                                        높은 수준의 건강 체력을 가지고 있네요!
+                                    </span>
+                                </div>
+                            {% else %}
+                                {% if user_obj.endurance_point|add:user_obj.flexibility_point|add:user_obj.strength_point|add:user_obj.quickness_point >= 15 %}
+                                    <div class="container w-full flex items-center justify-center">
+                                        <span class="mx-8">
+                                            <i class="fas fa-medal text-orange-800 fa-10x"></i>
+                                        </span>
+                                        <span class="text-xl font-semibold text-center mx-8">
+                                            건강을 위해 열심히 운동을 해야겠어요!
+                                        </span>
+                                    </div>
+                                    
+                                {% else %}
+                                    <div class="container w-full flex items-center justify-center">
+                                        <span class="mx-8">
+                                            <i class="fas fa-medal text-gray-400 fa-10x"></i>
+                                        </span>
+                                        <span class="text-xl font-semibold text-center mx-8">
+                                            조금만 노력하면 더 좋아질 수 있어요!
+                                        </span>
+                                    </div>
+                                    
+                                {% endif %}
+                            {% endif %}
+                        {% else %}
+                            <div class="my-2 w-full flex items-center justify-center">
+                                <i class="fas fa-stopwatch fa-3x mr-3 text-red-500"></i>
+                                <span class="text-lg font-semibold">기록 입력하기를 눌러 측정 기록을 입력하세요</span>
+                            </div>
+                        {% endif %}
                     {% endif %}
                 </div>
             </div>
             
-
-            
-            <div class="container lg:w-5/12 md:w-1/2 xl:w-full mx-auto my-10 py-10 flex flex-col items-start justify-around border p-6 border-gray-400">
+       
+            <div class="container lg:w-5/12 md:w-1/2 xl:w-full mx-auto py-10 flex flex-col items-start justify-around p-6">
+                <div class="flex items-center lg:w-5/12 md:w-1/2 xl:w-full my-5">
+                    <div class="h-px w-full bg-gray-400"></div>
+                    <span class="text-gray-600 font-medium mx-4 text-sm">Records</span>
+                    <div class="h-px w-full bg-gray-400"></div>
+                </div>
+                
                 <div class="lg:w-5/12 md:w-1/2 xl:w-full flex items-start">
                     {% include 'users/user_stat.html' %}
                 </div>
@@ -85,13 +111,12 @@
                 </div>
 
                 <div class="container lg:w-5/12 md:w-1/2 xl:w-full mx-auto flex items-center justify-around mt-3">
-                    <span class="text-center w-full border border-gray-400 py-2 mr-4 rounded-md">{{user_obj.endurance_point}}</span>
-                    <span class="text-center w-full border border-gray-400 mx-3 py-2 ml-4 rounded-md">{{user_obj.flexibility_point}}</span>
-                    <span class="text-center w-full border border-gray-400 mx-6 py-2 px--2 rounded-md">{{user_obj.strength_point}}</span>
-                    <span class="text-center w-full border border-gray-400 mx-3 py-2 mr-4 rounded-md">{{user_obj.quickness_point}}</span>
-                    <span class="text-center w-full border border-gray-400 py-2 ml-4 rounded-md">{{user_obj.fat_point}}</span>
+                    <span class="text-center w-full border border-gray-400 py-2 mr-4 rounded-md shadow-md hover:shadow-lg">{{user_obj.endurance_point}}</span>
+                    <span class="text-center w-full border border-gray-400 mx-3 py-2 ml-4 rounded-md shadow-md hover:shadow-lg">{{user_obj.flexibility_point}}</span>
+                    <span class="text-center w-full border border-gray-400 mx-6 py-2 px--2 rounded-md shadow-md hover:shadow-lg">{{user_obj.strength_point}}</span>
+                    <span class="text-center w-full border border-gray-400 mx-3 py-2 mr-4 rounded-md shadow-md hover:shadow-lg">{{user_obj.quickness_point}}</span>
+                    <span class="text-center w-full border border-gray-400 py-2 ml-4 rounded-md shadow-md hover:shadow-lg">{{user_obj.fat_point}}</span>
                 </div>
             </div>      
     </div>
-        
 {% endblock content %}

@@ -2,6 +2,7 @@ import os
 import requests
 from django.views import View
 from django.contrib.auth.views import PasswordChangeView
+from django.contrib.auth.decorators import login_required
 from django.views.generic import FormView, DetailView, UpdateView
 from django.urls import reverse_lazy
 from django.shortcuts import render, redirect, reverse
@@ -128,7 +129,8 @@ def github_callback(request):
                         user.set_unusable_password()
                         user.save()
                     login(request, user)
-                    messages.success(request, f"Welecome back {user.first_name}")
+                    messages.success(
+                        request, f"Welecome back {user.first_name}")
                     return redirect(reverse("core:home"))
                 else:
                     raise GithubException("Can't get your profile")
@@ -178,7 +180,8 @@ def kakao_callback(request):
         try:
             user = models.User.objects.get(email=email)
             if user.login_method != models.User.LOGIN_KAKAO:
-                raise KakaoException(f"Please log in with: {user.login_method}")
+                raise KakaoException(
+                    f"Please log in with: {user.login_method}")
         except models.User.DoesNotExist:
             user = models.User.objects.create(
                 email=email,
@@ -248,8 +251,10 @@ class UpdatePasswordView(
 
     def get_form(self, form_class=None):
         form = super().get_form(form_class=form_class)
-        form.fields["old_password"].widget.attrs = {"placeholder": "Current password"}
-        form.fields["new_password1"].widget.attrs = {"placeholder": "New password"}
+        form.fields["old_password"].widget.attrs = {
+            "placeholder": "Current password"}
+        form.fields["new_password1"].widget.attrs = {
+            "placeholder": "New password"}
         form.fields["new_password2"].widget.attrs = {
             "placeholder": "Confirm new password"
         }
@@ -283,9 +288,11 @@ class UpdateRecordView(mixins.LoggedInOnlyView, SuccessMessageMixin, UpdateView)
     def get_form(self, form_class=None):
         form = super().get_form(form_class=form_class)
         form.fields["pacer"].widget.attrs = {"placeholder": "Pacer"}
-        form.fields["longTimeRun"].widget.attrs = {"placeholder": "Long time run"}
+        form.fields["longTimeRun"].widget.attrs = {
+            "placeholder": "Long time run"}
         form.fields["stepTest"].widget.attrs = {"placeholder": "Step test"}
-        form.fields["bendFoward"].widget.attrs = {"placeholder": "Bend forward"}
+        form.fields["bendFoward"].widget.attrs = {
+            "placeholder": "Bend forward"}
         form.fields["totalFlexibility"].widget.attrs = {
             "placeholder": "Total flexibility"
         }
@@ -298,3 +305,12 @@ class UpdateRecordView(mixins.LoggedInOnlyView, SuccessMessageMixin, UpdateView)
         form.fields["weight"].widget.attrs = {"placeholder": "Weight"}
         # form.fields["fat"].widget.attrs = {"placeholder": "Fat"}
         return form
+
+
+@login_required
+def switch_hosting(request):
+    try:
+        del request.session["is_hosting"]
+    except KeyError:
+        request.session["is_hosting"] = True
+    return redirect(reverse("core:home"))
