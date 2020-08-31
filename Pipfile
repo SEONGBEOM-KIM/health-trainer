@@ -5,6 +5,7 @@ verify_ssl = true
 
 [dev-packages]
 awsebcli = "*"
+django = "==2.2.5"
 
 [packages]
 django = "==2.2.5"
